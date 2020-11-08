@@ -1,6 +1,8 @@
 package com.example.youssef.gamesapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,24 +16,32 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.youssef.gamesapplication.adaptor.Adapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class GamesDashborad extends AppCompatActivity{
+import java.util.ArrayList;
+import java.util.List;
 
-    public void goTo(Class goToClass){
-        Intent in = new Intent(this , goToClass);
-        startActivity(in);
+public class GamesDashborad extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private Adapter adaptor;
+    private LinearLayoutManager layoutManager;
+    private List<Games.Game> gameArrayList = new ArrayList<>();
 
-    }
-    ListView listView ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_games_dashborad);
-        listView = findViewById(R.id.gamesView);
+        fullListWithDummyData();
+        recyclerView = findViewById(R.id.gamesView);
+        adaptor = new Adapter(this, gameArrayList);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adaptor);
         try {
             JSONObject jsonBody = new JSONObject();
 
@@ -39,23 +49,31 @@ public class GamesDashborad extends AppCompatActivity{
             System.out.println(url);
 
             //queue.add(Games.updateGame("ahmed mohamed ahmed", "game_placeholder.png" , 500));
-        }catch (Exception e){
-            Toast.makeText(this, "There Is An Error",Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "There Is An Error", Toast.LENGTH_LONG).show();
         }
-    }
-
-    public void deleteGame(View view) {
     }
 
     public void addGame(View view) {
         goTo(AddGamesActivity.class);
     }
 
-    public void editGame(View view) {
+    private void fullListWithDummyData() {
+        Games games = new Games(this);
+
+        games.setGames("Apex", 1.6);
+        games.setGames("Apex1", 1.5);
+        games.setGames("Apex2", 1.4);
+        games.setGames("Apex3", 1.3);
+        games.setGames("Apex4", 1.2);
+        games.setGames("Apex5", 1.1);
+
+        gameArrayList = games.getGames();
     }
 
-    public void uploadImage(View view) {
+    public void goTo(Class goToClass) {
+        Intent in = new Intent(this, goToClass);
+        startActivity(in);
+
     }
-
-
 }
