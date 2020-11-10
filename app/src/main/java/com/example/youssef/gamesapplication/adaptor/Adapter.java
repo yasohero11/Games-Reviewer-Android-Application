@@ -1,6 +1,7 @@
 package com.example.youssef.gamesapplication.adaptor;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.youssef.gamesapplication.EditGameActivity;
 import com.example.youssef.gamesapplication.Games;
 import com.example.youssef.gamesapplication.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
@@ -31,7 +33,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             super(itemView);
             imageView = itemView.findViewById(R.id.gameImage);
             textGameName = itemView.findViewById(R.id.gameName);
-            textGamePrice = itemView.findViewById(R.id.gamePrice);
+            textGamePrice = itemView.findViewById(R.id.gameName);
             edit = itemView.findViewById(R.id.editGame);
             delete = itemView.findViewById(R.id.deleteGame);
         }
@@ -58,14 +60,22 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Games.Game game = arrayList.get(position);
+        System.out.println(game.getName());
         holder.textGameName.setText(game.getName());
         holder.textGamePrice.setText(Double.toString(game.getPrice()));
+        Glide.with(mContext)
+                .load(R.drawable.game_placeholder)
+                .placeholder(R.drawable.game_placeholder)
+                .into(holder.imageView);
+
 
         holder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //do your DB edit magic here
-                Toast.makeText(mContext, "edit postion" + position, Toast.LENGTH_SHORT).show();
+                Intent in = new Intent(mContext, EditGameActivity.class);
+                in.putExtra("gameIndex" , position);
+                mContext.startActivity(in);
+
             }
         });
 
@@ -73,7 +83,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 //do your DB delete magic here
-                Toast.makeText(mContext, "delete " + position, Toast.LENGTH_SHORT).show();
+
             }
         });
 
