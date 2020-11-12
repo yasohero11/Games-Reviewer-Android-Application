@@ -33,7 +33,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             super(itemView);
             imageView = itemView.findViewById(R.id.gameImage);
             textGameName = itemView.findViewById(R.id.gameName);
-            textGamePrice = itemView.findViewById(R.id.gameName);
+            textGamePrice = itemView.findViewById(R.id.gamePrice);
             edit = itemView.findViewById(R.id.editGame);
             delete = itemView.findViewById(R.id.deleteGame);
         }
@@ -61,8 +61,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Games.Game game = arrayList.get(position);
         System.out.println(game.getName());
-        holder.textGameName.setText(game.getName());
-        holder.textGamePrice.setText(Double.toString(game.getPrice()));
+        holder.textGameName.setText("apex");
+        holder.textGamePrice.setText("11");
         Glide.with(mContext)
                 .load(R.drawable.game_placeholder)
                 .placeholder(R.drawable.game_placeholder)
