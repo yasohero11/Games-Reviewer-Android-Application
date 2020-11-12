@@ -8,11 +8,22 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Toast;
 
+import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.backendless.files.BackendlessFile;
 import com.example.youssef.gamesapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -22,6 +33,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener{
     FloatingActionButton floatingActionButton;
     CircleImageView imageView;
     private final int PICK_IMAGE = 1;
+
 
 
     @Override
@@ -62,13 +74,90 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener{
 
     private void getUserData() {
 
-        name.getText().toString();
-        phone.getText().toString();
-        email.getText().toString();
-        password.getText().toString();
+
+
+
+
+
+
+        if(!TextUtils.isEmpty(email.getText()) && !TextUtils.isEmpty(password.getText())){
+
+            if(!TextUtils.isEmpty(name.getText()) && !TextUtils.isEmpty(phone.getText())){
+                BackendlessUser user = new BackendlessUser();
+                user.setEmail(email.getText().toString());
+                user.setPassword(password.getText().toString());
+                user.setProperty("name" , name.getText().toString());
+                user.setProperty("phone" , phone.getText().toString());
+
+                Backendless.UserService.register(user, new AsyncCallback<BackendlessUser>() {
+
+                    @Override
+                    public void handleResponse(BackendlessUser response) {
+                        setUserProperty(user);
+                        Toast.makeText(SingUp.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void handleFault(BackendlessFault fault) {
+                        if(fault.getCode().equals("3033")){
+                            Toast.makeText(SingUp.this, "There is some error", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }else
+                Toast.makeText(this, "Please Fill The Fields", Toast.LENGTH_SHORT).show();
+        }else
+            Toast.makeText(this, "Please Fill The Fields", Toast.LENGTH_SHORT).show();
+
+
+
+    }
+
+
+
+
+
+
+
+    private void setUserProperty(BackendlessUser user) {
 
         final Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        String textName = name.getText().toString();
+        SimpleDateFormat Format = new SimpleDateFormat("hh:mm a s, dd MMM yyyy", Locale.ENGLISH);
+        String date=  Format.format(new Date());
 
+        //upload image
+        Backendless.Files.Android.upload(bitmap, Bitmap.CompressFormat.PNG, 30
+                , textName + date + ".png"
+                , "userProfilePic", new AsyncCallback<BackendlessFile>() {
+                    @Override
+                    public void handleResponse(BackendlessFile response) {
+                        String pic = response.getFileURL();
+                        user.setProperty("userImage", pic);
+
+
+                        Backendless.UserService.update(user, new AsyncCallback<BackendlessUser>() {
+                            public void handleResponse(BackendlessUser user) {
+                                Toast.makeText(SingUp.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
+                                Intent in = new Intent(SingUp.this, login.class);
+                                startActivity(in);
+                            }
+
+                            public void handleFault(BackendlessFault fault) {
+
+                                Toast.makeText(SingUp.this,fault.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+                    }
+
+                    @Override
+                    public void handleFault(BackendlessFault fault) {
+
+                        Toast.makeText(SingUp.this,fault.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override

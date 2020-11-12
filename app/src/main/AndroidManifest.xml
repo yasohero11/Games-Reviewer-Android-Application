@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GamesApplication"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.SingUp"></activity>
+        <activity android:name=".Activity.singleGmae"></activity>
+        <activity android:name=".Activity.SingUp" />
         <activity android:name=".Activity.login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +34,7 @@
                 android:resource="@xml/picker_provider_paths" />
         </provider>
 
-        <activity android:name=".utlit.userProfile"></activity>
+        <activity android:name=".utlit.userProfile" />
         <activity android:name=".Activity.EditGameActivity" />
         <activity android:name=".Activity.AddGamesActivity" />
         <activity android:name=".Activity.GamesDashborad" />
