@@ -60,8 +60,8 @@ public class AddGamesActivity extends AppCompatActivity implements View.OnClickL
         Game game = new Game();
         game.setName(name.getText().toString());
         game.setPrice(price.getText().toString());
-
-        description.getText().toString();
+        game.setDesc(description.getText().toString());
+        
 
         final Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
 
