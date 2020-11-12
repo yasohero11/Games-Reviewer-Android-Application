@@ -8,7 +8,6 @@
     android:fillViewport="true"
     android:orientation="vertical"
     tools:context=".Activity.SingUp"
-    android:background="@drawable/waves"
     >
 
     <RelativeLayout
@@ -50,7 +49,7 @@
                     android:hint="@string/full_name"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:background="@drawable/cyrcile_wight"/>
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -70,7 +69,7 @@
                     android:hint="@string/phone_number"
                     android:inputType="phone"
                     android:maxLines="1"
-                    android:background="@drawable/cyrcile_wight"/>
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
         </RelativeLayout>
@@ -97,7 +96,7 @@
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:background="@drawable/cyrcile_wight"/>
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -118,7 +117,7 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:background="@drawable/cyrcile_wight"/>
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

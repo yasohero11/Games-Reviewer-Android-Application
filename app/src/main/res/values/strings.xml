@@ -9,4 +9,8 @@
     <string name="phone_number">Phone Number</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="game_price">Game Price</string>
+    <string name="game_description">Game Description</string>
+    <string name="game_name">Game Name</string>
+    <string name="todo">TODO</string>
 </resources>

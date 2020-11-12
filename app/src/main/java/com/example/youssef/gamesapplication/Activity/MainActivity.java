@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.youssef.gamesapplication.DataModel.GamesOld;
+import com.example.youssef.gamesapplication.DataModel.Game;
 import com.example.youssef.gamesapplication.R;
 
 public class MainActivity extends AppCompatActivity {
-    public static GamesOld games;
+
+    public static Game games;
     Intent in;
+
 
 
 
@@ -28,7 +30,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToGames(View view) {
+
             in = new Intent(this, GamesDashborad.class);
             startActivity(in);
+
+        Intent in = new Intent(this, GamesDashborad.class);
+            startActivity(in);
+
+
     }
 }
