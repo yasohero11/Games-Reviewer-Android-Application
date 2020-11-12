@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".Activity.SingUp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/setup_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/your_name"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/black"
+                android:textColorHint="@color/black"
+                app:counterEnabled="true"
+                app:counterMaxLength="15"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/setup_image">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/setup_ED_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:maxLength="25"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/setup_image"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="picImage"
+                android:src="@drawable/ic_person"
+                app:layout_constraintBottom_toTopOf="@id/setup_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="VectorDrawableCompat" />
+
+
+            <com.dx.dxloadingbutton.lib.LoadingButton
+                android:id="@+id/setup_btn"
+                android:layout_gravity="center"
+                android:layout_width="228dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/setup_name"
+                android:onClick="setUpFinish"
+                app:lb_btnDisabledColor="#cccccc"
+                app:lb_btnRippleColor="#000000"
+                app:lb_btnText="@string/save_account_setting"
+                app:lb_cornerRadius="32dp"
+                app:lb_disabledTextColor="#999999"
+                app:lb_resetAfterFailed="true"
+                app:lb_rippleEnable="true" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+</ScrollView>

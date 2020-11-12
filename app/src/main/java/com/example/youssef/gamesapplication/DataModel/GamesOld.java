@@ -1,7 +1,6 @@
-package com.example.youssef.gamesapplication;
+package com.example.youssef.gamesapplication.DataModel;
 
 import android.content.Context;
-import android.widget.Adapter;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -10,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.youssef.gamesapplication.utlit.myCallBack;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,19 +17,21 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
-public class Games {
+public class GamesOld {
     public static List<Game> games;
     public static Game  modifiableGame;
-    public static String  url = "https://gamesapi0.herokuapp.com/api/v1/games/";
-    private static  Response.Listener<JSONObject> updateGame ;
-    private static Response.Listener<JSONObject> getGames ;
-    private static Response.ErrorListener errorResponse ;
-    private static RequestQueue queue ;
-    private Context context;
 
-    public Games(Context context) {
+    public String  url = "http://10.0.2.2:3000/api/v1/games/";
+    private Response.Listener<JSONObject> updateGame ;
+    private Response.Listener<JSONObject> getGames ;
+    private Response.ErrorListener errorResponse ;
+    private RequestQueue queue ;
+    private Context context;
+    String newName;
+    double newPrice;
+
+    public GamesOld(Context context) {
         this.context = context;
         games = new ArrayList<>();
         queue = Volley.newRequestQueue(context);
@@ -52,34 +54,37 @@ public class Games {
         //games.add(game);
     }
 
-    public static List<Game> getGames(){
+    public  static List<Game> getGames(){
         return games;
     }
-    public static Game getGame(int index){
+    public static   Game getGame(int index){
         return games.get(index);
+    }
+    public static void  setModifiableGame(Game game){
+        modifiableGame = game;
     }
     public int size(){
         return games.size();
     }
-    public static void updateGame(byte index,String name, String image, double price){
 
+    public  void updateGame(String name, double price){
         try {
-            modifiableGame = games.get(index);
+            newName = name;
+            newPrice = price;
             if(updateGame == null) {
                 updateGame = (response)->{
-                    modifiableGame.name = name;
-                    modifiableGame.price = price;
-                    modifiableGame.image = image;
-                    modifiableGame = null;
+                    System.out.println(response);
+                    modifiableGame.name = newName;
+                    modifiableGame.price = newPrice;
 
+                    Toast.makeText(context, "Game is updated", Toast.LENGTH_SHORT).show();
                 };
             }
             JSONObject jsonBody = new JSONObject();
+
             jsonBody.put("name", name);
-            jsonBody.put("image", image);
             jsonBody.put("price", price);
-
-
+            //ImageRequest imageRequest = new ImageRequest()
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url + modifiableGame.id,
                     jsonBody, updateGame, errorResponse);
             queue.add(request);
@@ -89,7 +94,7 @@ public class Games {
 
     }
 
-    public static void setGames(myCallBack myCallBack){
+    public void setGames(myCallBack myCallBack){
         try {
             if(getGames == null){
                 getGames = response -> {
@@ -99,7 +104,7 @@ public class Games {
                         for(byte i = 0; i < jsonArray.length(); i++){
 
                                 jsonObject = jsonArray.getJSONObject(i);
-                                 System.out.println(jsonObject.getDouble("price") + " \n");
+
                                  games.add(
                                          new Game(
                                                  jsonObject.getString("_id"),
@@ -128,7 +133,7 @@ public class Games {
 
     }
 
-    public static class Game{
+    public class Game{
         String id;
         String name, image;
         double price;

@@ -1,8 +1,10 @@
-package com.example.youssef.gamesapplication;
+package com.example.youssef.gamesapplication.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.youssef.gamesapplication.R;
 
 public class AddGamesActivity extends AppCompatActivity {
 

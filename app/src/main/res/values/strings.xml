@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">gamesApplication</string>
     <string name="games1">Games</string>
+    <string name="sign_up">sing_up</string>
+    <string name="log_in">log_in</string>
+    <string name="your_name">your Name</string>
+    <string name="save_account_setting">Create Account</string>
 </resources>

@@ -8,21 +8,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.youssef.gamesapplication.EditGameActivity;
-import com.example.youssef.gamesapplication.Games;
+import com.example.youssef.gamesapplication.Activity.EditGameActivity;
+import com.example.youssef.gamesapplication.DataModel.GamesOld;
 import com.example.youssef.gamesapplication.R;
 
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private Context mContext;
-    private List<Games.Game> arrayList;
+    private List<GamesOld.Game> arrayList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
@@ -39,12 +38,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         }
     }
 
-    public void setList(List<Games.Game> list) {
+    public void setList(List<GamesOld.Game> list) {
         this.arrayList = list;
         notifyDataSetChanged();
     }
 
-    public Adapter(Context context, List<Games.Game> arrayList) {
+    public Adapter(Context context, List<GamesOld.Game> arrayList) {
         this.mContext = context;
         this.arrayList = arrayList;
     }
@@ -59,12 +58,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        Games.Game game = arrayList.get(position);
+        GamesOld.Game game = arrayList.get(position);
         System.out.println(game.getName());
         holder.textGameName.setText("apex");
         holder.textGamePrice.setText("11");
+
+        holder.textGameName.setText(game.getName());
+        holder.textGamePrice.setText(Double.toString(game.getPrice()));
         Glide.with(mContext)
-                .load(R.drawable.game_placeholder)
+                .load(game.getImage())
                 .placeholder(R.drawable.game_placeholder)
                 .into(holder.imageView);
 
@@ -73,9 +75,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent in = new Intent(mContext, EditGameActivity.class);
-                in.putExtra("gameIndex" , position);
+                GamesOld.setModifiableGame(game);
                 mContext.startActivity(in);
-
             }
         });
 
@@ -86,6 +87,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
             }
         });
+
+
 
     }
 
