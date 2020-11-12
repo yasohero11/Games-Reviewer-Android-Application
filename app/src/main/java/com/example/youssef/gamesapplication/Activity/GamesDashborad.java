@@ -1,6 +1,8 @@
 package com.example.youssef.gamesapplication.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
+import com.backendless.async.callback.BackendlessCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.DataQueryBuilder;
 import com.backendless.rt.data.EventHandler;
@@ -21,6 +24,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GamesDashborad extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -51,7 +55,35 @@ public class GamesDashborad extends AppCompatActivity {
         recyclerView.setAdapter(adaptor);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
 
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+
+                loadingIndicatorView.smoothToShow();
+                Game game= arrayList.get(viewHolder.getAdapterPosition());
+                arrayList.remove(viewHolder.getAdapterPosition());
+                Toast.makeText(GamesDashborad.this, game.getName(), Toast.LENGTH_SHORT).show();
+                 getDelete(game);
+            }
+        }).attachToRecyclerView(recyclerView);
+
+    }
+
+    private void getDelete(Game game) {
+        Backendless.Data.of(Game.class).remove(game, new BackendlessCallback<Long>() {
+            @Override
+            public void handleResponse(Long response) {
+                loadingIndicatorView.smoothToHide();
+
+                Toast.makeText(GamesDashborad.this, "delete", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void getData() {

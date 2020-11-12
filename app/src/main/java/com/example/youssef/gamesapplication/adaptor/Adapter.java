@@ -26,7 +26,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView textGameName, textGamePrice;
-        private Button edit, delete;
+        private Button edit;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -34,7 +34,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             textGameName = itemView.findViewById(R.id.gameName);
             textGamePrice = itemView.findViewById(R.id.gamePrice);
             edit = itemView.findViewById(R.id.editGame);
-            delete = itemView.findViewById(R.id.deleteGame);
         }
     }
 
@@ -71,11 +70,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         holder.edit.setOnClickListener(view -> {
             Intent in = new Intent(mContext, EditGameActivity.class);
             mContext.startActivity(in);
-        });
-
-        holder.delete.setOnClickListener(view -> {
-            //do your DB delete magic here
-
         });
 
 

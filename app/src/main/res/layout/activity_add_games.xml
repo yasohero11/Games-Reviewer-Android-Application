@@ -15,6 +15,18 @@
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <com.wang.avi.AVLoadingIndicatorView
+            android:id="@+id/avi_Create"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="363dp"
+            android:visibility="invisible"
+            app:indicatorColor="@color/blue"
+            app:indicatorName="BallClipRotatePulseIndicator"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            />
 
         <ImageView
             android:id="@+id/Game_image"

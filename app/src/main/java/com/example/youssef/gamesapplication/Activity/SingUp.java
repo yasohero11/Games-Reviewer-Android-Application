@@ -73,13 +73,6 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void getUserData() {
-
-
-
-
-
-
-
         if(!TextUtils.isEmpty(email.getText()) && !TextUtils.isEmpty(password.getText())){
 
             if(!TextUtils.isEmpty(name.getText()) && !TextUtils.isEmpty(phone.getText())){
@@ -112,13 +105,6 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener{
 
 
     }
-
-
-
-
-
-
-
     private void setUserProperty(BackendlessUser user) {
 
         final Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
