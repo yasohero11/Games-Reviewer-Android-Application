@@ -33,7 +33,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             super(itemView);
             imageView = itemView.findViewById(R.id.gameImage);
             textGameName = itemView.findViewById(R.id.gameName);
-            textGamePrice = itemView.findViewById(R.id.gameName);
+            textGamePrice = itemView.findViewById(R.id.gamePrice);
             edit = itemView.findViewById(R.id.editGame);
             delete = itemView.findViewById(R.id.deleteGame);
         }
@@ -60,11 +60,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Games.Game game = arrayList.get(position);
-        System.out.println(game.getName());
+
         holder.textGameName.setText(game.getName());
         holder.textGamePrice.setText(Double.toString(game.getPrice()));
         Glide.with(mContext)
-                .load(R.drawable.game_placeholder)
+                .load(game.getImage())
                 .placeholder(R.drawable.game_placeholder)
                 .into(holder.imageView);
 
@@ -73,9 +73,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             @Override
             public void onClick(View view) {
                 Intent in = new Intent(mContext, EditGameActivity.class);
-                in.putExtra("gameIndex" , position);
+                Games.setModifiableGame(game);
                 mContext.startActivity(in);
-
             }
         });
 
@@ -86,6 +85,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
             }
         });
+
+
 
     }
 

@@ -18,9 +18,9 @@ import java.util.List;
 
 public class GamesDashborad extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private Adapter adaptor;
+    public static Adapter adaptor;
     private LinearLayoutManager layoutManager;
-    private Games games;
+
 
 
     @Override
@@ -28,9 +28,12 @@ public class GamesDashborad extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_games_dashborad);
         recyclerView = findViewById(R.id.gamesView);
-        games = new Games(this);
 
-        gamesInit();
+        adaptor = new Adapter(this, Games.getGames());
+        recyclerView.setAdapter(adaptor);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
 
     }
 
@@ -38,14 +41,15 @@ public class GamesDashborad extends AppCompatActivity {
         goTo(AddGamesActivity.class);
     }
 
-    private void gamesInit() {
-        Games.setGames(()->{
 
-            adaptor = new Adapter(this, Games.getGames());
-            layoutManager = new LinearLayoutManager(this);
-            recyclerView.setLayoutManager(layoutManager);
-            recyclerView.setAdapter(adaptor);
-        });
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(adaptor!=null) {
+            adaptor.notifyDataSetChanged();
+
+        }
     }
 
     public void goTo(Class goToClass) {
