@@ -14,14 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.youssef.gamesapplication.Activity.EditGameActivity;
-import com.example.youssef.gamesapplication.DataModel.GamesOld;
+import com.example.youssef.gamesapplication.DataModel.Game;
 import com.example.youssef.gamesapplication.R;
 
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private Context mContext;
-    private List<GamesOld.Game> arrayList;
+    private List<Game> arrayList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
@@ -38,12 +38,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         }
     }
 
-    public void setList(List<GamesOld.Game> list) {
+    public void setList(List<Game> list) {
         this.arrayList = list;
         notifyDataSetChanged();
     }
 
-    public Adapter(Context context, List<GamesOld.Game> arrayList) {
+    public Adapter(Context context, List<Game> arrayList) {
         this.mContext = context;
         this.arrayList = arrayList;
     }
@@ -58,34 +58,24 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        GamesOld.Game game = arrayList.get(position);
-        System.out.println(game.getName());
-        holder.textGameName.setText("apex");
-        holder.textGamePrice.setText("11");
+        Game game = arrayList.get(position);
 
         holder.textGameName.setText(game.getName());
-        holder.textGamePrice.setText(Double.toString(game.getPrice()));
+        holder.textGamePrice.setText(game.getPrice());
         Glide.with(mContext)
-                .load(game.getImage())
+                .load(game.getLogo())
                 .placeholder(R.drawable.game_placeholder)
                 .into(holder.imageView);
 
 
-        holder.edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent in = new Intent(mContext, EditGameActivity.class);
-                GamesOld.setModifiableGame(game);
-                mContext.startActivity(in);
-            }
+        holder.edit.setOnClickListener(view -> {
+            Intent in = new Intent(mContext, EditGameActivity.class);
+            mContext.startActivity(in);
         });
 
-        holder.delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //do your DB delete magic here
+        holder.delete.setOnClickListener(view -> {
+            //do your DB delete magic here
 
-            }
         });
 
 

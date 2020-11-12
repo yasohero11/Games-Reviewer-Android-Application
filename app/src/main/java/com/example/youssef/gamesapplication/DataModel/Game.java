@@ -18,6 +18,7 @@ public class Game
   private String price;
   private String name;
   private String objectId;
+  private String desc;
   private String ownerId;
   public Date getUpdated()
   {
@@ -62,6 +63,16 @@ public class Game
   public String getObjectId()
   {
     return objectId;
+  }
+
+  public String getDesc()
+  {
+    return desc;
+  }
+
+  public void setDesc( String desc )
+  {
+    this.desc = desc;
   }
 
   public String getOwnerId()
