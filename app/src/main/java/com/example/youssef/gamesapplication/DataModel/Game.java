@@ -19,6 +19,10 @@ public class Game
   private String name;
   private String objectId;
   private String ownerId;
+
+  public Game() {
+  }
+
   public Date getUpdated()
   {
     return updated;
