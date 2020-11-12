@@ -20,6 +20,10 @@ public class Game
   private String objectId;
   private String desc;
   private String ownerId;
+
+  public Game() {
+  }
+
   public Date getUpdated()
   {
     return updated;
