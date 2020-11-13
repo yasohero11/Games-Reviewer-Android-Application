@@ -2,6 +2,7 @@ package com.example.youssef.gamesapplication.adaptor;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,17 +17,22 @@ import com.bumptech.glide.Glide;
 import com.example.youssef.gamesapplication.Activity.EditGameActivity;
 import com.example.youssef.gamesapplication.DataModel.Game;
 import com.example.youssef.gamesapplication.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private Context mContext;
     private List<Game> arrayList;
+    SharedPreferences prefs ;
+    String role;
+    public static Game lastClickedGame;
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
         private TextView textGameName, textGamePrice;
-        private Button edit;
+        private FloatingActionButton edit;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -45,6 +51,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public Adapter(Context context, List<Game> arrayList) {
         this.mContext = context;
         this.arrayList = arrayList;
+        prefs = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        role = prefs.getString("role", "");
     }
 
     @NonNull
@@ -58,7 +66,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Game game = arrayList.get(position);
-
+        holder.itemView.setOnClickListener((view)->{
+            lastClickedGame = game;
+        });
         holder.textGameName.setText(game.getName());
         holder.textGamePrice.setText(game.getPrice());
         Glide.with(mContext)
@@ -66,11 +76,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 .placeholder(R.drawable.game_placeholder)
                 .into(holder.imageView);
 
-
-        holder.edit.setOnClickListener(view -> {
-            Intent in = new Intent(mContext, EditGameActivity.class);
-            mContext.startActivity(in);
-        });
+        if(role.equals("admin")) {
+            holder.edit.setVisibility(View.VISIBLE);
+            holder.edit.setOnClickListener(view -> {
+                lastClickedGame = game;
+                Intent in = new Intent(mContext, EditGameActivity.class);
+                mContext.startActivity(in);
+            });
+        }
 
 
 

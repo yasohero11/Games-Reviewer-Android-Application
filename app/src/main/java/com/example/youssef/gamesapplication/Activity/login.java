@@ -27,7 +27,8 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Backendless.initApp(this, "8BCABE25-2DB1-59F4-FF1C-E50472554900", "CAC3D562-09DF-45F5-BCBF-092557DA4280");
+       
+       
 
         login = findViewById(R.id.login);
         singUp = findViewById(R.id.singUp);
@@ -51,8 +52,9 @@ public class login extends AppCompatActivity {
                 login.loadingSuccessful();
                 login.reset();
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("Email", email.getText().toString());
+                editor.putString("email", email.getText().toString());
                 editor.putString("password", password.getText().toString());
+                editor.putString("role", user.getProperty("role").toString());
                 editor.apply();
                 sendToMain();
             }
@@ -65,7 +67,7 @@ public class login extends AppCompatActivity {
     }
 
     private void sendToMain() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, dashboard.class);
         startActivity(intent);
         finish();
     }

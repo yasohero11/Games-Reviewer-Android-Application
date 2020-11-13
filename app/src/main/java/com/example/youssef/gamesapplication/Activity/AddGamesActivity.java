@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.backendless.Backendless;
-import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.files.BackendlessFile;
@@ -103,7 +102,7 @@ public class AddGamesActivity extends AppCompatActivity implements View.OnClickL
                             @Override
                             public void handleResponse(Game response) {
                                 loadingIndicatorView.setVisibility(View.INVISIBLE);
-                                Intent intent = new Intent(AddGamesActivity.this, MainActivity.class);
+                                Intent intent = new Intent(AddGamesActivity.this, GamesDashborad.class);
                                 startActivity(intent);
                                 finish();
 
