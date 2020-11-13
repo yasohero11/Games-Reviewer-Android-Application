@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GamesApplication"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.singleGmae"></activity>
+        <activity android:name=".Activity.singleGmae" />
         <activity android:name=".Activity.SingUp" />
         <activity android:name=".Activity.login">
             <intent-filter>
