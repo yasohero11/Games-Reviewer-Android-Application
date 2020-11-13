@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.youssef.gamesapplication.Activity.EditGameActivity;
+import com.example.youssef.gamesapplication.Activity.SingleGame;
 import com.example.youssef.gamesapplication.DataModel.Game;
 import com.example.youssef.gamesapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -68,6 +69,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         Game game = arrayList.get(position);
         holder.itemView.setOnClickListener((view)->{
             lastClickedGame = game;
+            Intent in = new Intent(mContext, SingleGame.class);
+            mContext.startActivity(in);
         });
         holder.textGameName.setText(game.getName());
         holder.textGamePrice.setText(game.getPrice());

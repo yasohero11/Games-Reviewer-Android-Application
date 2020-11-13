@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Game Master</string>
     <string name="games1">Games</string>
-    <string name="sign_up">sing_up</string>
-    <string name="log_in">log_in</string>
+    <string name="sign_up">sing up</string>
+    <string name="log_in">login</string>
     <string name="your_name">your Name</string>
     <string name="save_account_setting">Create Account</string>
     <string name="full_name">Full Name</string>

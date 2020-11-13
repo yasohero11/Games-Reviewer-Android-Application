@@ -67,7 +67,7 @@ public class login extends AppCompatActivity {
     }
 
     private void sendToMain() {
-        Intent intent = new Intent(this, dashboard.class);
+        Intent intent = new Intent(this, GamesDashborad.class);
         startActivity(intent);
         finish();
     }

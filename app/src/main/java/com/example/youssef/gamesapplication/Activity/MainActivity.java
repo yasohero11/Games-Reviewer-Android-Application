@@ -48,14 +48,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void logout(View view) {
-        System.out.println("logout .. .");
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("email", "");
-        editor.putString("password", "");
-        editor.putString("role", "");
-        editor.apply();
-        Intent in = new Intent(this, login.class);
-        startActivity(in);
-    }
+
 }

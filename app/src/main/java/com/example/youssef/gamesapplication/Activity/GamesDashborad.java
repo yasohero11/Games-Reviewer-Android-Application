@@ -44,6 +44,7 @@ public class GamesDashborad extends AppCompatActivity {
     DataQueryBuilder queryBuilder;
     List<Game> arrayList = new ArrayList<>();
     SharedPreferences prefs;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +54,17 @@ public class GamesDashborad extends AppCompatActivity {
         addButton = findViewById(R.id.addBtn);
         Backendless.initApp(this, "8BCABE25-2DB1-59F4-FF1C-E50472554900", "CAC3D562-09DF-45F5-BCBF-092557DA4280");
         prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+
+        editor =  prefs.edit();
         String email = prefs.getString("email", "");
         String password = prefs.getString("password", "");
         String role = prefs.getString("role", "");
         System.out.println(email + " " + password + " " + role);
 
-        if (email == null || password == null) {
+        if (email.isEmpty() || password.isEmpty()) {
             Intent intent = new Intent(this, login.class);
             startActivity(intent);
+            finish();
         } else {
             if (role.equals("admin")) {
                 gamesTitle.setText("Games Dashboard");
@@ -170,6 +174,27 @@ public class GamesDashborad extends AppCompatActivity {
         inflater.inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+    public void logout() {
+        Toast.makeText(this, "Logging out ....", Toast.LENGTH_SHORT).show();
+        Backendless.UserService.logout(new AsyncCallback<Void>() {
+            @Override
+            public void handleResponse(Void response) {
+
+                editor.putString("email", "");
+                editor.putString("password", "");
+                editor.putString("role", "");
+                editor.apply();
+                Intent in = new Intent(GamesDashborad.this, login.class);
+                startActivity(in);
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                Toast.makeText(GamesDashborad.this, fault.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -178,7 +203,7 @@ public class GamesDashborad extends AppCompatActivity {
                 Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.logout_menu:
-                Toast.makeText(this, "LogOut", Toast.LENGTH_SHORT).show();
+                logout();
                 break;
         }
 

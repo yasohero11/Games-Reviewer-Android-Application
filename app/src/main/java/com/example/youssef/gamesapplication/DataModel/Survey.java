@@ -15,6 +15,7 @@ public class Survey
   private String userName;
   private String ownerId;
   private String userImage;
+  private String createdDate;
   private String review;
   private String objectId;
   private Date updated;
@@ -43,6 +44,16 @@ public class Survey
   public void setUserImage( String userImage )
   {
     this.userImage = userImage;
+  }
+
+  public String getCreatedDate()
+  {
+    return createdDate;
+  }
+
+  public void setCreatedDate( String createdDate )
+  {
+    this.createdDate = createdDate;
   }
 
   public String getReview()
