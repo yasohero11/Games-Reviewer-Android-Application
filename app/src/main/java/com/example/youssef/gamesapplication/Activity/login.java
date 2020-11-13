@@ -55,6 +55,8 @@ public class login extends AppCompatActivity {
                 editor.putString("email", email.getText().toString());
                 editor.putString("password", password.getText().toString());
                 editor.putString("role", user.getProperty("role").toString());
+                editor.putString("name", user.getProperty("name").toString());
+                editor.putString("userImage", user.getProperty("userImage").toString());
                 editor.apply();
                 sendToMain();
             }

@@ -13,13 +13,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.bumptech.glide.Glide;
 import com.example.youssef.gamesapplication.Activity.EditGameActivity;
 import com.example.youssef.gamesapplication.Activity.SingleGame;
 import com.example.youssef.gamesapplication.DataModel.Game;
+import com.example.youssef.gamesapplication.DataModel.Survey;
 import com.example.youssef.gamesapplication.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
@@ -67,6 +72,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Game game = arrayList.get(position);
+
+
         holder.itemView.setOnClickListener((view)->{
             lastClickedGame = game;
             Intent in = new Intent(mContext, SingleGame.class);

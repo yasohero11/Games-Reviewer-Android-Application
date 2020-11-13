@@ -20,10 +20,7 @@ public class Game
   private String objectId;
   private String desc;
   private String ownerId;
-
-  public Game() {
-  }
-
+  private List<Survey> gameSurvey;
   public Date getUpdated()
   {
     return updated;
@@ -82,6 +79,16 @@ public class Game
   public String getOwnerId()
   {
     return ownerId;
+  }
+
+  public List<Survey> getGameSurvey()
+  {
+    return gameSurvey;
+  }
+
+  public void setGameSurvey( List<Survey> gameSurvey )
+  {
+    this.gameSurvey = gameSurvey;
   }
 
                                                     
