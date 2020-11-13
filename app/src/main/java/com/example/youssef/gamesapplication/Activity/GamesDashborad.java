@@ -2,13 +2,21 @@ package com.example.youssef.gamesapplication.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.backendless.Backendless;
@@ -31,14 +39,35 @@ public class GamesDashborad extends AppCompatActivity {
     public static Adapter adaptor;
     private LinearLayoutManager layoutManager;
     private AVLoadingIndicatorView loadingIndicatorView;
+    TextView gamesTitle;
+    CardView addButton;
     DataQueryBuilder queryBuilder;
     List<Game> arrayList = new ArrayList<>();
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_games_dashborad);
+        gamesTitle = findViewById(R.id.gamesTitle);
+        addButton = findViewById(R.id.addBtn);
+        Backendless.initApp(this, "8BCABE25-2DB1-59F4-FF1C-E50472554900", "CAC3D562-09DF-45F5-BCBF-092557DA4280");
+        prefs = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String email = prefs.getString("email", "");
+        String password = prefs.getString("password", "");
+        String role = prefs.getString("role", "");
+        System.out.println(email + " " + password + " " + role);
 
+        if (email == null || password == null) {
+            Intent intent = new Intent(this, login.class);
+            startActivity(intent);
+        } else {
+            if (role.equals("admin")) {
+                gamesTitle.setText("Games Dashboard");
+                addButton.setVisibility(View.VISIBLE);
+            }
+
+        }
 
         getData();
     }
@@ -47,6 +76,11 @@ public class GamesDashborad extends AppCompatActivity {
         goTo(AddGamesActivity.class);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adaptor.notifyDataSetChanged();
+    }
 
     private void setUpRecycleView() {
         recyclerView = findViewById(R.id.gamesView);
@@ -66,10 +100,10 @@ public class GamesDashborad extends AppCompatActivity {
 
 
                 loadingIndicatorView.smoothToShow();
-                Game game= arrayList.get(viewHolder.getAdapterPosition());
+                Game game = arrayList.get(viewHolder.getAdapterPosition());
                 arrayList.remove(viewHolder.getAdapterPosition());
                 Toast.makeText(GamesDashborad.this, game.getName(), Toast.LENGTH_SHORT).show();
-                 getDelete(game);
+                getDelete(game);
             }
         }).attachToRecyclerView(recyclerView);
 
@@ -128,5 +162,26 @@ public class GamesDashborad extends AppCompatActivity {
         Intent in = new Intent(this, goToClass);
         startActivity(in);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.profile_menu:
+                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.logout_menu:
+                Toast.makeText(this, "LogOut", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/gameImage"
                 android:layout_width="106dp"
                 android:layout_height="0dp"
@@ -53,24 +53,19 @@
                 app:layout_constraintStart_toEndOf="@+id/gameImage"
                 app:layout_constraintTop_toBottomOf="@+id/gameName" />
 
-            <com.google.android.material.button.MaterialButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/editGame"
-                style="@style/Widget.MaterialComponents.Button.Icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="104dp"
-                android:layout_marginEnd="8dp"
-                app:backgroundTint="#90CAF9"
-                app:cornerRadius="30dp"
-                app:icon="@drawable/edit_icon"
-                app:iconTint="@color/black"
-                app:iconGravity="start"
-                android:text="edit"
-                android:textColor="@color/black"
-                app:iconPadding="0dp"
+                android:layout_margin="8dp"
+                android:backgroundTint="@color/blue"
+                android:visibility="invisible"
+                app:fabSize="mini"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/gamePrice" />
+
+                app:srcCompat="@drawable/edit_20" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
