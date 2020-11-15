@@ -2,6 +2,7 @@ package com.example.youssef.gamesapplication.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
@@ -66,8 +67,8 @@ public class EditGameActivity extends AppCompatActivity implements IPickResult {
                 @Override
                 public void handleResponse(Game response) {
                     Toast.makeText(EditGameActivity.this, "Game is Updated", Toast.LENGTH_SHORT).show();
-
-
+                    Intent in = new Intent(EditGameActivity.this, GamesDashborad.class);
+                    startActivity(in);
                 }
 
                 @Override

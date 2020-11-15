@@ -3,11 +3,13 @@ package com.example.youssef.gamesapplication.Activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.backendless.Backendless;
 import com.backendless.async.callback.AsyncCallback;
@@ -51,7 +53,6 @@ public class AddServey extends AppCompatActivity {
 
         ArrayList<Survey> addressCollection = new ArrayList<>();
 
-
         Backendless.Data.of(Survey.class).save(survey, new AsyncCallback<Survey>() {
             @Override
             public void handleResponse(Survey response) {
@@ -60,13 +61,14 @@ public class AddServey extends AppCompatActivity {
                         new AsyncCallback<Integer>() {
                             @Override
                             public void handleResponse(Integer response) {
-                                System.out.println("asdddddddad dsssssssdd daaaaaaaaaaaaaaaaaa");
-
+                                Toast.makeText(AddServey.this, "Review added ", Toast.LENGTH_SHORT).show();
+                                Intent in = new Intent(AddServey.this, GamesDashborad.class);
+                                startActivity(in);
                             }
 
                             @Override
                             public void handleFault(BackendlessFault fault) {
-                                System.out.println(fault.getMessage());
+                                Toast.makeText(AddServey.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
                             }
                         }
                 );

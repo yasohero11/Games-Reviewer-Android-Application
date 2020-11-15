@@ -27,8 +27,8 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-       
-       
+
+
 
         login = findViewById(R.id.login);
         singUp = findViewById(R.id.singUp);

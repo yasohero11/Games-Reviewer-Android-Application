@@ -35,6 +35,7 @@ public class AddGamesActivity extends AppCompatActivity implements View.OnClickL
     Bitmap bitmap;
 
     public AddGamesActivity() {
+        
     }
 
     @Override
@@ -105,7 +106,6 @@ public class AddGamesActivity extends AppCompatActivity implements View.OnClickL
                                 Intent intent = new Intent(AddGamesActivity.this, GamesDashborad.class);
                                 startActivity(intent);
                                 finish();
-
                             }
 
                             @Override

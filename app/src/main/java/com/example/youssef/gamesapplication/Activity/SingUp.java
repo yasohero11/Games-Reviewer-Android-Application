@@ -76,6 +76,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener{
         if(!TextUtils.isEmpty(email.getText()) && !TextUtils.isEmpty(password.getText())){
 
             if(!TextUtils.isEmpty(name.getText()) && !TextUtils.isEmpty(phone.getText())){
+                Toast.makeText(this, "Signing up ...", Toast.LENGTH_SHORT).show();
                 BackendlessUser user = new BackendlessUser();
                 user.setEmail(email.getText().toString());
                 user.setPassword(password.getText().toString());
